@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  abogadosespecialistasenpensiones:
+    image: ""
+    pull_policy: always
+    restart: always
+    networks:
+      - caddy_network
+  caddy_reverse_proxy:
+    image: caddy:latest
+    restart: always
+    networks:
+      - caddy_network
+    depends_on:
+      - abogadosespecialistasenpensiones
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./certs:/etc/ssl/certs/custom
+      - ./private:/etc/ssl/private/custom
+  dozzle:
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./dozzle:/data
+    ports:
+      - 8080:8080
+    environment:
+      DOZZLE_AUTH_PROVIDER: simple
+
+networks:
+  caddy_network:
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,4 @@
+abogadosespecialistasenpensiones.com {
+    reverse_proxy abogados:3000
+    tls /etc/ssl/certs/custom/abogadosespecialistasenpensiones.pem /etc/ssl/private/custom/abogadosespecialistasenpensiones.pem
+}
