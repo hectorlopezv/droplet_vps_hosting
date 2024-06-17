@@ -6,6 +6,9 @@ services:
     restart: always
     networks:
       - caddy_network
+    ports:
+      - "3000:3000"
+    
   caddy_reverse_proxy:
     image: caddy:latest
     restart: always
@@ -28,7 +31,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./dozzle:/data
     ports:
-      - 8080:8080
+      - "9999:8080"
     environment:
       DOZZLE_AUTH_PROVIDER: simple
 
