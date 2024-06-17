@@ -1,4 +1,10 @@
-abogadosespecialistasenpensiones.com {
-    reverse_proxy abogados:3000
+# HTTP to HTTPS Redirection for specific hostnames
+abogadosespecialistasenpensiones.com, www.abogadosespecialistasenpensiones.com {
+    redir https://{host}{uri}
+}
+
+# HTTPS configuration for abogadosespecialistasenpensiones.com
+abogadosespecialistasenpensiones.com, www.abogadosespecialistasenpensiones.com {
+    reverse_proxy abogadosespecialistasenpensiones:3000
     tls /etc/ssl/certs/custom/abogadosespecialistasenpensiones.pem /etc/ssl/private/custom/abogadosespecialistasenpensiones.pem
 }
